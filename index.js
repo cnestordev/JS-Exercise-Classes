@@ -60,14 +60,16 @@ class Person {
   }
 }
 
-const person1 = new Person("Robert", 30)
+
+//testing .....................................................................
+const person1 = new Person("Kenny", 30)
 console.log(person1)
 person1.eat('Pizza')
 console.log(person1)
 person1.poop()
 console.log(person1)
 console.log(person1.toString())
-
+//............................................................................
 
 console.log('**************** TASK 2 ****************************')
 /*
@@ -96,13 +98,13 @@ class Car {
   }
   drive(distance) {
     let gallonPerMile = 1 / this.milesPerGallon
-    let totalMilageAvailable = this.tank * this.milesPerGallon
+    let range = this.tank * this.milesPerGallon
     if (this.tank > 0) {
       for (let i = 0; i < distance; i++) {
-        if (totalMilageAvailable > gallonPerMile) {
+        if (range > gallonPerMile) {
           this.tank = Number((this.tank - gallonPerMile).toFixed(2))
-          this.odometer = this.odometer + 1
-          totalMilageAvailable = this.tank * this.milesPerGallon
+          this.odometer++
+          range = this.tank * this.milesPerGallon
         } else {
           return `I ran out of fuel at ${i} miles!`;
         }
@@ -113,6 +115,7 @@ class Car {
   }
 }
 
+//testing........................................................................................
 const car1 = new Car("Honda", 20)
 console.log(car1)
 car1.fill(10)
@@ -120,7 +123,7 @@ console.log(car1)
 car1.drive(10)
 console.log(car1)
 console.log(car1.drive(300))
-
+//..............................................................................................
 
 
 console.log('************************** TASK 3 **************************')
@@ -185,10 +188,10 @@ class Instructor extends Lambdasian {
     return `${studentObj.name} receives a perfect score on ${subject} `
   }
   setGrade(studentName) {
+    //isNegative will be used to determine whether student receives or loses points (1/4 chance student will lose points)
     const isNegative = Math.floor(Math.random() * 4) === 0 ? true : false
     let grade = Math.floor(Math.random() * 10) + 1
-    isNegative && (grade *= -1)
-    studentName.grade += grade;
+    studentName.grade += isNegative ? (grade *= -1) : grade
     console.log(`${this.name} has set grade for ${studentName.name} to ${grade}`)
   }
 }
