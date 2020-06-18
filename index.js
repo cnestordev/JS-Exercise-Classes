@@ -184,6 +184,14 @@ class Instructor extends Lambdasian {
   grade(studentObj, subject) {
     return `${studentObj.name} receives a perfect score on ${subject} `
   }
+  setGrade(studentName) {
+    console.log(`${this.name} is setting grade for ${studentName.name}`)
+    const isNegative = Math.floor(Math.random() * 2) === 0 ? true : false
+    let grade = Math.floor(Math.random() * 3) + 1
+    isNegative && (grade *= -1)
+    studentName.grade += grade;
+    console.log(`${this.name} has set grade for ${studentName.name} to ${grade}`)
+  }
 }
 
 const inst1 = new Instructor({
@@ -222,6 +230,7 @@ class Student extends Lambdasian {
     this.previousBackground = studentArrgs.previousBackground;
     this.className = studentArrgs.className;
     this.favSubjects = studentArrgs.favSubjects;
+    this.grade = 0;
   }
   listSubjects() {
     let output = this.favSubjects.join(', ')
