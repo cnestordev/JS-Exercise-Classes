@@ -185,9 +185,8 @@ class Instructor extends Lambdasian {
     return `${studentObj.name} receives a perfect score on ${subject} `
   }
   setGrade(studentName) {
-    console.log(`${this.name} is setting grade for ${studentName.name}`)
-    const isNegative = Math.floor(Math.random() * 2) === 0 ? true : false
-    let grade = Math.floor(Math.random() * 3) + 1
+    const isNegative = Math.floor(Math.random() * 4) === 0 ? true : false
+    let grade = Math.floor(Math.random() * 10) + 1
     isNegative && (grade *= -1)
     studentName.grade += grade;
     console.log(`${this.name} has set grade for ${studentName.name} to ${grade}`)
@@ -241,6 +240,13 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}`
+  }
+  gradute() {
+    if (this.grade > 70) {
+      return `${this.name} is eligible for graduation`
+    } else {
+      return `${this.name} needs a minimum of 70 points to graduate.  ${this.name}'s current grade is ${this.grade}`
+    }
   }
 }
 
@@ -301,7 +307,10 @@ console.log(pm1)
 console.log(pm1.standUp("Main"))
 console.log(pm1.debugsCode({ name: "Sean" }, "Node"))
 
+console.log('*********** STRETCH 1 *************')
+console.log("completed")
 
+console.log("***************** stretch 2 ********************")
 
 /*
   STRETCH PROBLEM (no tests!)
