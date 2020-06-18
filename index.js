@@ -14,10 +14,10 @@ class Airplane {
     this.isFlying = false;
   }
   takeOff() {
-    this.isFlying = true;
+    return this.isFlying = true;
   }
   land() {
-    this.isFlying = false;
+    return this.isFlying = false;
   }
 }
 
@@ -27,6 +27,7 @@ class Airplane {
 // 👇 COMPLETE YOUR WORK BELOW 👇
 */
 
+console.log('******************** TASK 1 ********************************')
 /*
   TASK 1
     - Write a Person class whose constructor initializes `name` and `age` from arguments.
@@ -41,9 +42,34 @@ class Airplane {
 */
 
 class Person {
-
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
+  eat(foodItem) {
+    if (this.stomach.length < 10) {
+      return this.stomach.push(foodItem)
+    }
+  }
+  poop() {
+    return this.stomach = []
+  }
+  toString() {
+    return `${this.name}, ${this.age}`
+  }
 }
 
+const person1 = new Person("Robert", 30)
+console.log(person1)
+person1.eat('Pizza')
+console.log(person1)
+person1.poop()
+console.log(person1)
+console.log(person1.toString())
+
+
+console.log('**************** TASK 2 ****************************')
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -59,9 +85,45 @@ class Person {
 */
 
 class Car {
-
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons) {
+    return this.tank = this.tank + gallons
+  }
+  drive(distance) {
+    let gallonPerMile = 1 / this.milesPerGallon
+    let totalMilageAvailable = this.tank * this.milesPerGallon
+    if (this.tank > 0) {
+      for (let i = 0; i < distance; i++) {
+        if (totalMilageAvailable > gallonPerMile) {
+          this.tank = Number((this.tank - gallonPerMile).toFixed(2))
+          this.odometer = this.odometer + 1
+          totalMilageAvailable = this.tank * this.milesPerGallon
+        } else {
+          return `I ran out of fuel at ${i} miles!`;
+        }
+      }
+    } else {
+      return "you don't have any gas for this trip, please fill up"
+    }
+  }
 }
 
+const car1 = new Car("Honda", 20)
+console.log(car1)
+car1.fill(10)
+console.log(car1)
+car1.drive(10)
+console.log(car1)
+console.log(car1.drive(300))
+
+
+
+console.log('************************** TASK 3 **************************')
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -75,9 +137,26 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(lambdaArrgs) {
+    this.name = lambdaArrgs.name;
+    this.age = lambdaArrgs.age;
+    this.location = lambdaArrgs.location;
+  }
+  speak() {
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
 
+const lamb1 = new Lambdasian({
+  name: "Jane",
+  age: 25,
+  location: "USA"
+})
+console.log(lamb1)
+console.log(lamb1.speak())
+
+
+console.log('******************* TASK 4 ********************************')
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -92,10 +171,36 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(instructorArrgs) {
+    super(instructorArrgs)
+    this.specialty = instructorArrgs.specialty
+    this.favLanguage = instructorArrgs.favLanguage
+    this.catchPhrase = instructorArrgs.catchPhrase
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}`
+  }
+  grade(studentObj, subject) {
+    return `${studentObj.name} receives a perfect score on ${subject} `
+  }
 }
 
+const inst1 = new Instructor({
+  name: "Jerry",
+  age: 35,
+  location: "USA",
+  specialty: "Javascript",
+  favLanguage: 'Python',
+  catchPhrase: "What choo' talkin' 'bout, Willis?"
+})
+console.log(inst1)
+console.log(inst1.demo("PHP"))
+console.log(inst1.grade({ name: "Jack" }, "PHP"))
+
+
+
+console.log('****************** TASK 5 **************************')
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -111,10 +216,40 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian {
+  constructor(studentArrgs) {
+    super(studentArrgs)
+    this.previousBackground = studentArrgs.previousBackground;
+    this.className = studentArrgs.className;
+    this.favSubjects = studentArrgs.favSubjects;
+  }
+  listSubjects() {
+    let output = this.favSubjects.join(', ')
+    return `Loving ${output}!`
+  }
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
 }
 
+const student1 = new Student({
+  name: "Liz",
+  age: 32,
+  location: "Canada",
+  previousBackground: 'Nurse',
+  className: 'Web',
+  favSubjects: ["CSS", "Javascript", "PHP", "React"]
+})
+
+console.log(student1)
+console.log(student1.listSubjects())
+console.log(student1.PRAssignment("Cors"))
+console.log(student1.sprintChallenge("PHP"))
+
+console.log("************* TASK 6 *********************")
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -128,9 +263,36 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor {
+  constructor(pmArrgs) {
+    super(pmArrgs)
+    this.gradClassName = pmArrgs.gradClassName;
+    this.favInstructor = pmArrgs.favInstructor;
+  }
+  standUp(channel) {
+    return `${this.name} announces to ${channel}, @${channel} standy times!`
+  }
+  debugsCode(studentObj, subject) {
+    return `${this.name} debugs ${studentObj.name}'s code on ${subject}`
+  }
 }
+
+const pm1 = new ProjectManager({
+  name: "Rick",
+  age: 28,
+  location: "USA",
+  gradClassName: "WEB33",
+  favInstructor: "Jane",
+  specialty: "PHP",
+  favLanguage: "Python",
+  catchPhrase: "None"
+})
+
+console.log(pm1)
+console.log(pm1.standUp("Main"))
+console.log(pm1.debugsCode({ name: "Sean" }, "Node"))
+
+
 
 /*
   STRETCH PROBLEM (no tests!)
